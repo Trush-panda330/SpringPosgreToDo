@@ -2,11 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.webapp.repository.ToDoMapper">
 
+<!-- 「resultType」には、「todos:すること」テーブルにあたるエンティティ「ToDo」クラスをFQCN（完全修飾名）で設定する。
+		FQCN : Fully Qualified Class Name
+		FQCNで指定する「resultType＝””」で指定したクラスの「フィールド」とSQL結果の「ヘッダー名」が一致することで、
+		「結果データ」を「フィールド」にバインドする。
+		「＃｛フィールド名｝」はMyBatisの「プレースホルダ」です。
+		pgadminで実行したSQLで動的に値を修正したい箇所はプレースホルダに変更します。
+-->
 	<!-- 全件検索 -->
 	<select id="selectAll"
 		resultType="com.example.webapp.entity.ToDo">
 		SELECT id, todo, detail, created_at as createdAt,
-		updated_at as updatedAt FROM todos WHERE id = #{id}
+		updated_at as updatedAt FROM todos
 	</select>
 	
 	<!-- 1件検索 -->
@@ -25,8 +32,7 @@
 
 	<!-- 更新 -->
 	<update id="update">
-		UPDATE todos SET todo = #{todo}, detail =
-		#{detail},
+		UPDATE todos SET todo = #{todo}, detail = #{detail},
 		updated_at = CURRENT_TIMESTAMP WHERE id = #{id}
 	</update>
 	<!-- 削除 -->

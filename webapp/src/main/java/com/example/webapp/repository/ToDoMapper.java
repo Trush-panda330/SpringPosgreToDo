@@ -8,8 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.example.webapp.entity.ToDo;
 
 /** 「O/R」マッパーにMyBatisを使用するため＠Mapperをインターフェースに付与することにより
- * 　Javaのオブジェクトとデータベースのテーブル間のマッピングを定義している
- * */
+ * 　Javaのオブジェクトとデータベースのテーブル間のマッピングを定義している*/
 @Mapper
 public interface ToDoMapper {
 	//全てのすることを取得する
