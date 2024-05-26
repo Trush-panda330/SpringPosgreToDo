@@ -41,7 +41,7 @@ public class WebappApplication {
 	  // ★登録
 	  // 登録データ作成
 	  ToDo todo = new ToDo();
-	  todo.setTodo("リポジトリのテスト");
+	  todo.setTodo("サービスのテスト");
 	  todo.setDetail("DBへの登録処理");
 	  service.insertToDo(todo);
 	  System.out.println("===登録確認＝＝＝");

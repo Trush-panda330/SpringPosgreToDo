@@ -25,10 +25,10 @@
 
 	<!-- 更新 -->
 	<update id="update">
-		UPDATE todos SET todo = #{todo}, detail =
-		#{detail},
+		UPDATE todos SET todo = #{todo}, detail =#{detail},
 		updated_at = CURRENT_TIMESTAMP WHERE id = #{id}
 	</update>
+	
 	<!-- 削除 -->
 	<delete id="delete">
 		DELETE FROM todos WHERE id = #{id}

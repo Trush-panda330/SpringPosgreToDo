@@ -2,6 +2,8 @@ package com.example.webapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,10 +38,10 @@ public class ToDoController {
     public String detail(@PathVariable Integer id, Model model,
                          RedirectAttributes attributes) {
         // 「すること」に対応する「すること」情報を取得
-        ToDo toDo = toDoService.findByIdToDo(id);
-        if (toDo != null) {
+        ToDo ToDo = toDoService.findByIdToDo(id);
+        if (ToDo != null) {
             // 対象データがある場合はモデルに格納
-            model.addAttribute("todo", toDo); 
+            model.addAttribute("todo", ToDo); 
             return "todo/detail";
         } else {
             // 対象データがない場合はフラッシュメッセージを設定
@@ -59,12 +61,18 @@ public class ToDoController {
 
     // 新規登録を実行する
     @PostMapping("/save")
-    public String create(ToDoForm form,
-                         RedirectAttributes attributes) {
+    public String create(@Validated ToDoForm form,
+    		BindingResult bindingResult,
+            RedirectAttributes attributes) {
+    	if (bindingResult.hasErrors()) {
+			//新規登録画面の設定
+    		form.setIsNew(true);
+    		return "todo/form";
+		}
         // エンティティへの変換
-        ToDo todo = ToDoHelper.convertToDo(form); // 変数名を一貫して小文字に変更
+        ToDo ToDo = ToDoHelper.convertToDo(form); 
         // 登録実行
-        toDoService.insertToDo(todo);
+        toDoService.insertToDo(ToDo);
         // フラッシュメッセージ
         attributes.addFlashAttribute("message", "新しいタスクが追加されました");
         // PRGパターン
@@ -90,14 +98,24 @@ public class ToDoController {
         }
     }
 
-    // 「すること」の情報を更新する
+	/*    
+	 * 「すること」の情報を更新する
+	*/    
     @PostMapping("/update")
-    public String update(ToDoForm form,
-                         RedirectAttributes attributes) {
+    public String update(@Validated ToDoForm form,
+    		BindingResult bindingResult,
+    		RedirectAttributes attributes) {
+    	//===バリデーションチェック===
+    	//入力チェックNG：入力画面を表示する
+    	if(bindingResult.hasErrors()) {
+    		//更新画面の設定
+    		form.setIsNew(false);
+    		return "todo/form";
+    	}
         // エンティティへの変換
-        ToDo todo = ToDoHelper.convertToDo(form); // 変数名を一貫して小文字に変更
+        ToDo ToDo = ToDoHelper.convertToDo(form);
         // 更新処理
-        toDoService.updateToDo(todo);
+        toDoService.updateToDo(ToDo);
         // フラッシュメッセージ
         attributes.addFlashAttribute("message", "タスクが変更されました");
         // PRGパターン
