@@ -19,7 +19,8 @@ import lombok.RequiredArgsConstructor;
 public class WebappApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WebappApplication.class, args);
+		SpringApplication.run(WebappApplication.class, args)
+		.getBean(WebappApplication.class).exe();
 	}
 	
 	/** DI*/
@@ -55,6 +56,7 @@ public class WebappApplication {
 	  System.out.println(service.findByIdToDo(4));
 	  
 	  //　★削除
+	  service.deleteToDo(4);
 	  System.out.println("===削除確認＝＝＝");
 	  for(ToDo row: service.findAllToDo()) {
 		  System.out.println(row);

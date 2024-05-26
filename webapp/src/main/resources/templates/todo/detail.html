@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>ToDo詳細</title>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		th,
+		td {
+			border: 1px solid black;
+			padding: 8px;
+			text-align: left;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+
+		th {
+			background-color: #4CAF50;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+	<h2>ToDo詳細</h2>
+	<table>
+		<tr>
+			<th>タイトル</th>
+			<td th:text="${todo.todo}"></td>
+		</tr>
+		<tr>
+			<td>詳細</td>
+			<td th:text="${todo.detail}"></td>
+		</tr>
+		<tr>
+			<td>登録日時</td>
+			<td th:text="${todo.createdAt.format(
+						T(java.time.format.DateTimeFormatter).
+						ofPattern('yyyy/MM/dd HH:mm:ss'))}">
+		</tr>
+		<tr>
+			<td>更新日時</td>
+			<td th:text="${todo.updatedAt.format(
+				T(java.time.format.DateTimeFormatter).
+				ofPattern('yyyy/MM/dd HH:mm:ss'))}">
+			</td>
+		</tr>
+	</table>
+	<a th:href="@{/todos/edit/{id}(id=${todo.id})}">編集</a>
+	<form th:action="@{/todos/delete/{id}(id=${todo.id})}" method="post">
+		<input type="submit" value="削除">
+	</a>
+	<a th:href="@{/todos}">一覧に戻る</a>
+</body>
+
+</html>
