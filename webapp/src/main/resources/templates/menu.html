@@ -1,22 +1,76 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+	<!--　xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"は
+		HTMLドキュメント内でsecという名前空間を使用することを宣言している。
+		secはThymeleafのテンプレートでSpring Securityに関連する機能を利用する際に使う。
+		-->
+
 <head>
-<meta charset="UTF-8">
-<title>メニュー</title>
+    <meta charset="UTF-8">
+    <title>メニュー</title>
+    <!-- 新しいCSSファイルのリンク -->
+    <link rel="stylesheet" type="text/css" href="menu_styles.css">
+</head>
 <style>
-	body{
-		text-align: center;
+	
+	body {
+	    font-family: Arial, sans-serif;
+	    background-color: #f8f9fa;
+	    color: #343a40;
+	    text-align: center;
+	    margin: 0;
+	    padding: 0;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    height: 100vh;
+	}
+	
+	h2 {
+	    color: #007bff;
+	    margin-bottom: 20px;
+	}
+	
+	/* メニュー項目のスタイル */
+	a {
+	    display: block;
+	    margin: 10px;
+	    padding: 10px 20px;
+	    border-radius: 5px;
+	    background-color: #007bff;
+	    color: white;
+	    text-decoration: none;
+	    font-size: 16px;
+	}
+	
+	a:hover {
+	    background-color: #0056b3;
+	}
+	
+	/* ログアウトボタンのスタイル */
+	form {
+	    margin-top: 20px;
 	}
 </style>
-</head>
+
 <body>
-	<h2>メニュー画面</h2>
-	<hr>
-	<a th:href="@{/todos}">タスク一覧へ</a>
-	<br>
-<!--	ログアウト -->
-<form th:action="@{/logout}" method="post">
-	<input type="submit" value="ログアウト">
-</form>
+    <h2>メニュー画面</h2>
+    <hr>
+    <a th:href="@{/todos}">タスク一覧へ</a>
+    <div sec:authentication="name">
+        ログイン情報のname値に書き変わる
+		<!--　現在ログインしているユーザーの名前を表示するためのもの
+					Spring Securityによって認証されたユーザーの名前を取得し、その値でHTML内のテキストを動的に置き換える-->
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        認証された場合のみ表示
+    </div>
+    <br>
+    <!-- ログアウト -->
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="ログアウト">
+    </form>
 </body>
+
 </html>
