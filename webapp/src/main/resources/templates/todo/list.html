@@ -4,39 +4,103 @@
 <head>
 	<meta charset="UTF-8">
 	<title>タスク一覧</title>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f8f9fa;
+			color: #343a40;
+			text-align: center;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.container {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			max-width: 800px;
+			width: 100%;
+		}
+
+		h2 {
+			color: #007bff;
+			margin-bottom: 20px;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 20px;
+		}
+
+		th,
+		td {
+			border: 1px solid #dee2e6;
+			padding: 12px;
+			text-align: left;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f8f9fa;
+		}
+
+		th {
+			background-color: #007bff;
+			color: white;
+		}
+
+		a,
+		input[type="submit"] {
+			display: inline-block;
+			margin: 5px;
+			padding: 10px 20px;
+			border-radius: 5px;
+			text-decoration: none;
+			font-size: 16px;
+		}
+
+		a {
+			background-color: #007bff;
+			color: white;
+		}
+
+		a:hover {
+			background-color: #0056b3;
+		}
+	</style>
 </head>
 
 <body>
-	<h2>タスク一覧</h2>
-	<!-- Flashメッセージの表示 -->
-	<p th:if="${message}" th:text="${message}"
-			style="color: blue;">完了メッセージ
-	</p>
-	<p th:if="${errorMessage}" 
-			th:text="${errorMessage}" style="color:red;">
-		エラーメッセージ
-	</p>
-	<table border="1" width="300">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>ToDo</th>
-				<th>詳細</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="todo : ${todos}">
-				<td th:text="${todo.id}"></td>
-				<td th:text="${todo.todo}"></td>
-				<td>
-					<a th:href="@{/todos/{id}(id=${todo.id})}">
-						詳細
-					</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<a th:href="@{/todos/form}">新規登録</a>
+	<div class="container">
+		<h2>タスク一覧</h2>
+		<!-- Flashメッセージの表示 -->
+		<p th:if="${message}" th:text="${message}" style="color: blue;"></p>
+		<p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red;"></p>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>ToDo</th>
+					<th>詳細</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="todo : ${todos}">
+					<td th:text="${todo.id}"></td>
+					<td th:text="${todo.todo}"></td>
+					<td>
+						<a th:href="@{/todos/{id}(id=${todo.id})}">詳細</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{/todos/form}">新規登録</a>
+	</div>
 </body>
 
 </html>
