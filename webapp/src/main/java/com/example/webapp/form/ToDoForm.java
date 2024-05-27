@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ToDoForm {
-	//することID
+	//することID	
 	private Integer id;
 	//すること
 	@NotBlank(message = "ToDoは必須です。")

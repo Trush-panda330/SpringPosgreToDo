@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>メニュー</title>
+<style>
+	body{
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+	<h2>メニュー画面</h2>
+	<hr>
+	<a th:href="@{/todos}">タスク一覧へ</a>
+	<br>
+<!--	ログアウト -->
+<form th:action="@{/logout}" method="post">
+	<input type="submit" value="ログアウト">
+</form>
+</body>
+</html>
